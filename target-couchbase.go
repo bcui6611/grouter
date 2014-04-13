@@ -105,7 +105,7 @@ func CouchbaseTargetStartIncoming(s CouchbaseTarget, incoming chan []Request) {
 			b := getBucket(bucketName)
 			if b != nil {
 				vbid := b.VBHash(string(key))
-				return b.VBucketServerMap.VBucketMap[vbid][0]
+                                return b.VBServerMap().VBucketMap[vbid][0]
 			}
 			return -1
 		}
