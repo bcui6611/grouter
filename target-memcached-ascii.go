@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/dustin/gomemcached"
+	"github.com/couchbase/gomemcached"
 )
 
 var (

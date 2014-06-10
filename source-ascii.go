@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dustin/gomemcached"
+	"github.com/couchbase/gomemcached"
 )
 
 var (

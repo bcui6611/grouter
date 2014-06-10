@@ -4,9 +4,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/couchbaselabs/go-couchbase"
-	"github.com/dustin/gomemcached"
-	"github.com/dustin/gomemcached/client"
+	"github.com/bcui6611/go-couchbase"
+	"github.com/couchbase/gomemcached"
+	"github.com/couchbase/gomemcached/client"
 )
 
 type CouchbaseTarget struct {

@@ -34,6 +34,11 @@ var sources = map[string]endPoint{
 		descrip: "a simple workload generator",
 		runSource: grouter.WorkLoadRun,
 	},
+	"kinetic-source": endPoint{
+		usage: "kinetic-source:LISTEN_INTERFACE:LISTEN_PORT",
+		descrip: "kinetic source",
+		runSource: grouter.MakeListenSourceFunc(&grouter.KineticSource{}),
+	},
 }
 
 // Available targets of requests.
@@ -62,6 +67,12 @@ var targets = map[string]endPoint{
 		usage: "memory",
 		descrip: "simple in-memory hashtable target",
 		startTarget: grouter.MemoryStorageStart,
+		maxConcurrency: 1,
+	},
+	"kinetic-storage": endPoint{
+		usage: "kinetic-storage",
+		descrip: "leveldb storage",
+		startTarget: grouter.KineticStorageStart,
 		maxConcurrency: 1,
 	},
 }

@@ -4,8 +4,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/dustin/gomemcached"
-	"github.com/dustin/gomemcached/client"
+	"github.com/couchbase/gomemcached"
+	"github.com/couchbase/gomemcached/client"
 )
 
 type MemcachedBinaryTarget struct {
