@@ -2,17 +2,16 @@ package grouter
 
 import (
     "bytes"
-	"encoding/binary"
+    "encoding/binary"
     "sync"
     "strconv"
-	"github.com/couchbase/gomemcached"
-	"github.com/bcui6611/kinetic"
-	"fmt"
+    "github.com/couchbase/gomemcached"
+    "fmt"
 )
 
 type KineticStorage struct {
 	cas      uint64
-    db      *kinetic.LevelDBEngine
+        db      *LevelDBEngine
 	incoming chan []Request
 }
 
@@ -192,7 +191,7 @@ func KineticGetQuietHandler(s *KineticStorage, req Request) {
 				ret.Key = key
 				ret.Cas = 0
 				ret.Body = it.Value()
-				//fmt.Println("Get vid:%d, key:%d, value:%s", vbid, string(ret.Key), string(ret.Body[:]))
+				fmt.Println("Get vid:, key:", vbid, string(ret.Key))
 				req.Res <- ret
 			}
 		}
@@ -219,7 +218,7 @@ func KineticSetHandler(s *KineticStorage, req Request) {
         ret.Status = gomemcached.KEY_ENOENT
         fmt.Println("fail to set key with error:%d", err)
     } else {
-    	fmt.Println("set key %s with value successfully", string(req.Req.Key))
+    	fmt.Println("set key with value successfully", string(req.Req.Key))
     }
 	//flags := binary.BigEndian.Uint32(req.Req.Extras)
     //exp := binary.BigEndian.Uint32(req.Req.Extras[4:])
@@ -239,7 +238,7 @@ func KineticStorageStart(spec string, params Params, statsChan chan Stats) Targe
     
     f := func() {
         var err error
-        s.db, err = kinetic.Open("/tmp/testdb")
+        s.db, err = Open("/tmp/testdb")
         if err != nil {
             println(err.Error())
             panic(err)
@@ -252,6 +251,7 @@ func KineticStorageStart(spec string, params Params, statsChan chan Stats) Targe
 	go func() {
 		for reqs := range s.incoming {
 			for _, req := range reqs {
+				fmt.Println("incoming opcode:", req.Req.Opcode)
 				if h, ok := KineticStorageHandlers[req.Req.Opcode]; ok {
 					h.Handler(&s, req)
 				} else {

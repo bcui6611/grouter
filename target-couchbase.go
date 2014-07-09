@@ -3,7 +3,6 @@ package grouter
 import (
 	"log"
 	"strings"
-
 	"github.com/bcui6611/go-couchbase"
 	"github.com/couchbase/gomemcached"
 	"github.com/couchbase/gomemcached/client"
